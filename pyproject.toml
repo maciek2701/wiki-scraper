@@ -1,0 +1,25 @@
+[project]
+name = "wiki-scraper"
+version = "0.1.0"
+requires-python = ">=3.11"
+
+[tool.black]
+line-length = 88
+target-version = ["py311"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+
+[tool.ruff.lint]
+# E/W = PEP8, F = realne błędy, I = porządek importów
+select = ["E", "W", "F", "I"]
+
+# dlugosc linii
+ignore = ["E501"]
+
+# importy
+[tool.ruff.lint.isort]
+known-first-party = ["src"]
+combine-as-imports = true
+
