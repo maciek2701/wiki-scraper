@@ -12,6 +12,9 @@ dist/
 venv/
 env/
 ENV/
+.env
+.env.*
+.python-version
 
 # Tooling caches
 .mypy_cache/
@@ -31,5 +34,3 @@ coverage.xml
 .DS_Store
 Thumbs.db
 
-# vscode
-.vscode/

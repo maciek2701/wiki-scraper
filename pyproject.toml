@@ -1,7 +1,23 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
 [project]
-name = "wiki-scraper"
+name = "wikiscraper"
 version = "0.1.0"
 requires-python = ">=3.11"
+description = "WikiScraper project for Python course"
+dependencies = [
+    "requests",
+    "beautifulsoup4",
+    "pandas",
+    "matplotlib",
+    "wordfreq",
+]
+
+[tool.setuptools]
+packages = { find = {} }
+
 
 [tool.black]
 line-length = 88
@@ -20,6 +36,6 @@ ignore = ["E501"]
 
 # importy
 [tool.ruff.lint.isort]
-known-first-party = ["src"]
+known-first-party = ["wikiscraper"]
 combine-as-imports = true
 
