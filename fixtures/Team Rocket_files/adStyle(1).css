@@ -1,0 +1,200 @@
+@font-face {
+     font-family: Max Sans;
+     src: url("MaxSans-Bold.woff2");
+     font-weight: 700;
+     font-style: normal;
+}
+@font-face {
+     font-family: Max Sans;
+     src: url("MaxSans-Regular.woff2");
+     font-weight: 400;
+     font-style: normal;
+}
+@font-face {
+     font-family: Max Sans;
+     src: url("MaxSans-Demi.woff2");
+     font-weight: 600;
+     font-style: normal;
+}
+
+white {
+     font-weight: 700;
+     color: #FFFFFF;
+}
+blue {
+     font-weight: 700;
+     color: #8298AB;
+}
+
+.fullSize { left:0px; top:0px; width:160px; height:600px; }
+.abs { position: absolute; }
+.rel { position: relative; }
+.flexCenter { display:flex; align-items: center; justify-content: center; }
+.flexBottom { display:flex; align-items: flex-end; justify-content: center; }
+.col { flex-direction: column; }
+.imgs { width: 100%; height: 100%; }
+.cover { object-fit: cover; }
+.contain { object-fit: contain; }
+.fill { object-fit: fill; }
+
+/********************* FULL BLEED IMAGE **********************/
+#fullBleedBG { 
+     display: none;
+}
+
+/*********************** FREE ELEMENTS ***********************/
+#keyartContainer {
+     left: -43px;
+     top: -1px;
+     width: 246px;
+     height: 441px;
+}
+#titleTextContainer {
+     left: 4px;
+     top: 5px;
+     width: 108px;
+}
+#titleText {
+     color: #FFF;
+     font-family: Max Sans;
+     font-size: 7px;
+     font-weight: 600;
+     line-height: 1em;
+     letter-spacing: 0.02em;
+}
+#cornerLogo {
+     left: 125px;
+     top: 2px;
+     width: 31px;
+     height: 12px;
+}
+
+/*********************** GRADIENTS ***********************/
+#topGrad {
+     left: 0px;
+     top: 0px;
+     width: 100%;
+     height: 60px;
+}
+#bottomGrad {
+     left: 0px;
+     top: 280px;
+     width: 100%;
+     height: 160px;
+}
+
+/************************ STACK *************************/
+#stackContainer {
+     left: 0px;
+     top: 368px;
+     width: 100%;
+     height: 217px;
+}
+#heroTextContainer {
+     width: 154px
+}
+#heroText {
+     color: #FFF;
+     font-family: Max Sans;
+     font-size: 12px;
+     font-weight: 600;
+     text-align: center;
+     letter-spacing: 0.05em;
+     line-height: 1em;
+}
+#heroText live { 
+     display: inline-block;
+     color: white;
+     position: relative;
+     font-weight: 700;
+     font-size: 0.58em;
+     border-radius: 0.1em;
+     padding: 0.22em 0.25em 0.01em;
+     top: -0.23em; 
+     letter-spacing: 0.02em;
+     line-height: 0.9;
+}
+#hboMaxLogo {
+     display: block;
+     margin-top: 5px;
+     width: 75px;
+     height: 54px;
+}
+#stackLogo {
+     display: none;
+     margin-top: 5px;
+     width: 130px;
+     height: 54px;
+}
+#dynamicLogoContainer {
+     display: none;
+     margin-top: 5px;
+     width: 130px;
+     height: 54px;
+}
+#ctaContainer {
+     margin-top: 10px;
+     height: 17px;
+     padding: 6px 6px;
+     border-radius: 2px;
+}
+#cta {
+     width: max-content;
+     color: #FFFFFF;
+     text-align: center;
+     font-family: Max Sans;
+     font-size: 7px;
+     font-weight: 600;
+     line-height: 1em;
+     letter-spacing: 0.16em;
+}
+#secondaryText {
+     margin-top: 6px;
+     width: 145px;
+     color: #8298AB;
+     text-align: center;
+     font-family: Max Sans;
+     font-size: 12px;
+     font-weight: 600;
+     line-height: 1.05em;
+     letter-spacing: 0.05em;
+}
+
+/********************** COPYRIGHT **********************/
+#copyrightContainer {
+     left: 0px;
+     top: 339px;
+     width: 160px;
+     height: 18px;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+}
+#copyright {
+     width: 150px;
+     color: #FFF;
+     text-align: center;
+     font-family: Max Sans;
+     font-size: 6px;
+     font-weight: 400;
+     line-height: 1.02em;
+     letter-spacing: 0.05em;
+}
+
+/*********************** LEGAL ***********************/
+#legalContainer {
+     position: absolute;
+     top: 568px;
+     width: 100%;
+}
+#legal {
+     width: 146px;
+     height: 28px;
+     color: #FFF;
+     text-align: center;
+     font-family: Max Sans;
+     font-size: 7px;
+     font-weight: 400;
+     letter-spacing: 0.05em;
+}
+#legal span { line-height: 1em; }

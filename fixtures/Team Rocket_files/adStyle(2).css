@@ -1,0 +1,240 @@
+@font-face {
+  font-family: Max Sans;
+  src: url("MaxSans-Bold.woff2");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: Max Sans;
+  src: url("MaxSans-Regular.woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: Max Sans;
+  src: url("MaxSans-Demi.woff2");
+  font-weight: 600;
+  font-style: normal;
+}
+
+white {
+  font-weight: 700;
+  color: #ffffff;
+}
+blue {
+  font-weight: 700;
+  color: #8298ab;
+}
+
+.fullSize {
+  left: 0px;
+  top: 0px;
+  width: 300px;
+  height: 250px;
+}
+.abs {
+  position: absolute;
+}
+.rel {
+  position: relative;
+}
+.flexCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.flexBottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.flexBothEnd {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+.col {
+  flex-direction: column;
+}
+.imgs {
+  width: 100%;
+  height: 100%;
+}
+.cover {
+  object-fit: cover;
+}
+.contain {
+  object-fit: contain;
+}
+.fill {
+  object-fit: fill;
+}
+
+/********************* FULL BLEED IMAGE **********************/
+#fullBleedBG {
+  display: none;
+}
+
+/*********************** FREE ELEMENTS ***********************/
+#keyartContainer {
+  left: -174px;
+  top: -92px;
+  width: 648px;
+  height: 342px;
+}
+#titleTextContainer {
+  left: 9px;
+  top: 9px;
+  width: 119px;
+}
+#titleText {
+  color: #fff;
+  font-family: Max Sans;
+  font-size: 7px;
+  font-weight: 600;
+  line-height: 1em;
+  letter-spacing: 0.07em;
+}
+#cornerLogo {
+  left: 260px;
+  top: 7px;
+  width: 31px;
+  height: 12px;
+}
+
+/*********************** GRADIENTS ***********************/
+#topGrad {
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 40px;
+}
+#bottomGrad {
+  left: 0px;
+  bottom: 0px;
+  width: 100%;
+  height: 120px;
+}
+
+/************************ STACK *************************/
+#stackContainer {
+  left: 0px;
+  top: 160px;
+  width: 100%;
+  height: 86px;
+}
+#stackTop {
+  gap: 7px;
+}
+#stackInnerLeft {
+  height: 48px;
+}
+#heroTextContainer {
+  width: auto;
+  max-width: 138px;
+  height: 27px;
+}
+#heroText {
+  color: #fff;
+  font-family: Max Sans;
+  font-size: 9px;
+  font-weight: 600;
+  text-align: right;
+  letter-spacing: 0.03em;
+  line-height: 1em;
+}
+#heroText live {
+  display: inline-block;
+  color: white;
+  position: relative;
+  font-weight: 700;
+  font-size: 0.59em;
+  border-radius: 0.1em;
+  padding: 0.294em 0.25em 0.01em;
+  top: -0.23em;
+  letter-spacing: 0.03em;
+  line-height: 0.8;
+}
+#hboMaxLogo {
+  display: block;
+  width: 65px;
+  height: 47px;
+}
+#stackLogo {
+  display: none;
+  width: 65px;
+  height: 47px;
+}
+#dynamicLogoContainer {
+  display: none;
+  height: 47px;
+}
+#ctaContainer {
+  display: flex;
+  margin-top: 4px;
+  height: 16px;
+  width: fit-content;
+  padding: 5px 7px;
+  border-radius: 2px;
+}
+#cta {
+  color: #ffffff;
+  text-align: center;
+  font-family: Max Sans;
+  font-size: 7px;
+  font-weight: 600;
+  line-height: 1em;
+  letter-spacing: 0.12em;
+}
+#secondaryText {
+  margin-top: 7px;
+  width: 100%;
+  color: #8298ab;
+  text-align: center;
+  font-family: Max Sans;
+  font-size: 9px;
+  font-weight: 600;
+  line-height: 1.05em;
+  letter-spacing: 0.03em;
+}
+
+/********************** COPYRIGHT **********************/
+#copyrightContainer {
+  left: -49px;
+  top: 90px;
+  width: 40%;
+  height: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  rotate: -90deg;
+}
+#copyright {
+  width: 125px;
+  color: #fff;
+  text-align: center;
+  font-family: Max Sans;
+  font-size: 4px;
+  font-weight: 400;
+  line-height: 1.05em;
+  letter-spacing: 0.05em;
+}
+
+/*********************** LEGAL ***********************/
+#legalContainer {
+  position: absolute;
+  top: 231px;
+  width: 100%;
+}
+#legal {
+  width: 290px;
+  height: 17px;
+  color: #fff;
+  text-align: center;
+  font-family: Max Sans;
+  font-size: 8px;
+  font-weight: 400;
+}
+#legal span {
+  line-height: 1em;
+}

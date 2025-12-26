@@ -1,0 +1,61 @@
+/* prevent video player expanding too wide */
+.adthrive-collapse-player,
+#adthrive-contextual-container {
+max-width: 600px;
+height: auto!important;
+overflow: auto;
+}
+body.adthrive-device-desktop div[id^="cls-video-container"] {
+    min-height: 337px!important;
+}
+.adthrive-player-title {
+display: none;
+}
+/* END video player */
+
+
+body.adthrive-device-phone .adthrive-footer.adthrive-sticky {
+    padding-top:0px;
+    overflow:visible !important;
+    border-top:0px !important;
+}
+body.adthrive-device-phone .adthrive-sticky.adthrive-footer>.adthrive-close {
+    top:-25px !important;
+    right:0px !important;
+    border-radius: 0px !important;
+    line-height: 24px !important;
+    font-size: 24px !important;
+}
+
+
+
+body.adthrive-device-phone .adthrive-footer.adthrive-sticky {
+    padding-top:0px;
+    overflow:visible !important;
+    border-top:0px !important;
+}
+body.adthrive-device-phone .adthrive-sticky.adthrive-footer>.adthrive-close {
+    top:-25px !important;
+    right:0px !important;
+    border-radius: 0px !important;
+    line-height: 24px !important;
+    font-size: 24px !important;
+}
+
+.adthrive-sticky-outstream.adthrive-sticky-outstream-mobile {
+    bottom: 52px !important;
+}
+
+body.adthrive-device-desktop .adthrive-sticky-outstream, body.adthrive-device-tablet .adthrive-sticky-outstream {
+bottom: 100px !important;
+}
+
+/* for overlay containers ZD 369274 */
+.overlay {
+z-index: 999999999!important;
+}
+
+
+.adthrive-video-stickyoutstream {
+position: sticky !important;
+}
