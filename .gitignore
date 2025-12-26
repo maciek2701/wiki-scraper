@@ -31,7 +31,5 @@ coverage.xml
 .DS_Store
 Thumbs.db
 
-# Data/output (uncomment if generated)
-# data/
-# outputs/
-# logs/
+# vscode
+.vscode/
