@@ -16,4 +16,8 @@ class WikiClient:
         url = self.base + self.phrase
 
         response = requests.get(url)
-        print(response.status_code, response.text)
+
+        if response.status_code == 200:
+            return response.text
+        else:
+            raise Exception(f"Failed to fetch HTML: {response.status_code}")

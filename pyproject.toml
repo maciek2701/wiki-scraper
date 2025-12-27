@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools"]
+requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -8,11 +8,24 @@ version = "0.1.0"
 requires-python = ">=3.11"
 description = "WikiScraper project for Python course"
 dependencies = [
-    "requests",
-    "beautifulsoup4",
+    "requests>=2.32",
+    "beautifulsoup4>=4.13",
+]
+
+[project.optional-dependencies]
+analysis = [
     "pandas",
     "matplotlib",
     "wordfreq",
+]
+notebook = [
+    "jupyter",
+    "ipykernel",
+]
+dev = [
+    "black",
+    "ruff",
+    "pytest",
 ]
 
 [tool.setuptools]

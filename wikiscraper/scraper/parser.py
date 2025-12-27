@@ -1,6 +1,7 @@
 import re
 
-from bs4 import BeautifulSoup
+import numpy as np
+from bs4 import BeautifulSoup, Tag
 
 
 class ArticleParser:
@@ -29,3 +30,85 @@ class ArticleParser:
                 return text
 
         raise Exception("Summary not found")
+
+    def _remove_unwanted(self, container):
+        if not container:
+            return
+
+        ### tagi, które prawie zawsze są śmieciem dla tekstu
+        for tag in container.find_all(["script", "style", "noscript", "iframe"]):
+            tag.decompose()
+
+        ### typowe elementy „nie-artykułowe”
+        selectors = [
+            "span.mw-editsection",
+            "#toc",
+            ".toc",
+            "#catlinks",
+            "div.printfooter",
+            "div.mw-jump-link",
+            "div.mw-indicators",
+            # reklamy
+            ".adthrive-ad",
+            ".adthrive-content",
+            # przypisy/odnośniki
+            "ol.references",
+            "div.reflist",
+        ]
+        for sel in selectors:
+            for el in container.select(sel):
+                el.decompose()
+
+        ###„szablonowe” rzeczy: infoboxy/tabele/miniaturki.
+        selectors_tables = [
+            "table.infobox",
+            "table.roundy",
+            "table.roundtable",
+            "div.thumb",  # miniaturki z podpisami
+            "div.tright",
+            "div.tleft",  # boxy pływające
+        ]
+        for sel in selectors_tables:
+            for el in container.select(sel):
+                el.decompose()
+
+        ### same znaczniki przypisów w tekście: [1], [12] itd.
+        for sup in container.select("sup.reference"):
+            sup.decompose()
+
+    def _clean_text(self, text: str) -> str:
+        text = re.sub(
+            r"\[\s*\d+\s*\]", "", text
+        )  # raz jeszcze dla pewnosci usuniete przypisy
+        text = re.sub(r"\s+", " ", text).strip()  # normalizacja spacji
+        return text
+
+    def extract_article_text(self) -> str:
+        container = self.get_main_content()
+        if not container:
+            return ""
+
+        self._remove_unwanted(container)
+
+        blocks = []
+
+        # Biore rzeczy z których chce składać tekst do analizy
+        for el in container.find_all(["h2", "h3", "h4", "p", "li"]):
+            txt = el.get_text("", strip=False)
+            txt = self._clean_text(txt)
+
+            if not txt:
+                continue
+
+            if el.name in ("h2", "h3", "h4"):
+                # Nie wiedzialem czy dodawac nagłówki ale na razie tak robie
+                blocks.append(f"\n{txt}\n")
+            else:
+                blocks.append(txt)
+
+        # sklejam
+        text = "\n".join(blocks)
+
+        # eksperymentalnie: porządki z pustymi liniami
+        text = re.sub(r"\n{3,}", "\n\n", text).strip()
+        return text
