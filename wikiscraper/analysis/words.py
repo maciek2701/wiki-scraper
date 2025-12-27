@@ -52,3 +52,8 @@ class WordCounter:
 
     def reset_counts(self):
         self.save_counts({})
+
+
+class RelativeFrequencyAnalyzer:
+    def __init__(self):
+        pass

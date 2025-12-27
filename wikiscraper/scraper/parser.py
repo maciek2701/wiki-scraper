@@ -1,6 +1,7 @@
 import re
 
 import numpy as np
+import pandas as pd
 from bs4 import BeautifulSoup, Tag
 
 
@@ -112,3 +113,28 @@ class ArticleParser:
         # eksperymentalnie: porządki z pustymi liniami
         text = re.sub(r"\n{3,}", "\n\n", text).strip()
         return text
+
+    def extract_table_with_pandas(self, n, first_row_is_header=True):
+        container = self.get_main_content()
+        tables = container.find_all("table")
+        if n < 1 or n > len(tables):
+            raise ValueError(f"Table number {n} out of range (1..{len(tables)})")
+        table_tag = tables[n - 1]
+        tab_html = str(table_tag)
+
+        header = 0 if first_row_is_header else None
+
+        dfs = pd.read_html(tab_html, header=header)
+        df = dfs[0] if dfs else pd.DataFrame()
+
+        if isinstance(df.columns, pd.MultiIndex):
+            df.columns = [
+                " ".join([str(x) for x in col if str(x) != "nan"]).strip()
+                for col in df.columns
+            ]
+
+        df = df.loc[:, ~df.columns.astype(str).str.match(r"^Unnamed")]
+
+        if df.shape[1] >= 2:
+            df = df.set_index(df.columns[0])
+        return df

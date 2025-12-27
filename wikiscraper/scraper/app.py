@@ -1,3 +1,6 @@
+import pandas as pd
+
+from wikiscraper.analysis.table import save_table_csv, value_freqs
 from wikiscraper.analysis.words import WordCounter
 from wikiscraper.scraper.client import WikiClient
 from wikiscraper.scraper.parser import ArticleParser
@@ -21,4 +24,28 @@ class WikiScraperApp:
         self.phrase = phrase
         html = self._load_html()
         text = ArticleParser(html).extract_article_text()
-        WordCounter().run(text)
+        return WordCounter().run(text)
+
+    def run_table(self, phrase, nr, first_row_as_header=False, display=True):
+        self.phrase = phrase
+        html = self._load_html()
+        parser = ArticleParser(html)
+        df = parser.extract_table_with_pandas(
+            nr, first_row_is_header=first_row_as_header
+        )
+
+        if display:
+            pd.set_option("display.max_rows", None)  # Display all rows
+            pd.set_option("display.max_columns", None)  # Display all columns
+            pd.set_option("display.width", 100)  # Set the width of the table
+            pd.set_option("display.precision", 2)  # Set the precision of numeric values
+
+            print("=== TABLE ===")
+            print(df)
+            save_table_csv(df, phrase)
+            print("\n=== VALUE FREQUENCIES ===")
+            print(value_freqs(df))
+        return df, value_freqs(df)
+
+    def analyze_relative_frequencies(self, mode, count, chart):
+        pass
