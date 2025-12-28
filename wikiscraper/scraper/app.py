@@ -1,7 +1,7 @@
 import pandas as pd
 
 from wikiscraper.analysis.table import save_table_csv, value_freqs
-from wikiscraper.analysis.words import WordCounter
+from wikiscraper.analysis.words import RelativeFrequencyAnalyzer, WordCounter
 from wikiscraper.scraper.client import WikiClient
 from wikiscraper.scraper.parser import ArticleParser
 
@@ -35,11 +35,6 @@ class WikiScraperApp:
         )
 
         if display:
-            pd.set_option("display.max_rows", None)  # Display all rows
-            pd.set_option("display.max_columns", None)  # Display all columns
-            pd.set_option("display.width", 100)  # Set the width of the table
-            pd.set_option("display.precision", 2)  # Set the precision of numeric values
-
             print("=== TABLE ===")
             print(df)
             save_table_csv(df, phrase)
@@ -48,4 +43,16 @@ class WikiScraperApp:
         return df, value_freqs(df)
 
     def analyze_relative_frequencies(self, mode, count, chart):
-        pass
+        analyser = RelativeFrequencyAnalyzer(count, mode)
+        df = analyser.analyze_frequency()
+
+        print(df)
+
+        if chart:
+            analyser.freqs_bar_chart(
+                df,
+                out_path="./chart.png",
+                title="Relative word frequency: article vs language",
+            )
+
+        return df
