@@ -138,3 +138,27 @@ class ArticleParser:
         if df.shape[1] >= 2:
             df = df.set_index(df.columns[0])
         return df
+
+    def extract_links(self, prefix="/wiki/"):
+        container = self.get_main_content()
+        links = container.find_all("a")
+
+        ### czyszcze linki
+        results = []
+
+        for link in links:
+            href = link.get("href")
+            if not href:
+                continue
+            if href.startswith("#"):
+                continue
+            if not href.startswith(prefix):
+                continue
+            ### sprawdzam czy nie sa to linki do np plików
+            rest = href[len(prefix) :]
+            if ":" in rest:
+                continue
+            if not rest:
+                continue
+            results.append(rest)  ### zapisuje bez wiki
+        return results

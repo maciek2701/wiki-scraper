@@ -13,7 +13,7 @@ from matplotlib import pyplot as plt
 class WordCounter:
     WORD_RE = re.compile(r"\w+", flags=re.UNICODE)
     WORD_RE_ANG = re.compile(r"[A-Za-z]+(?:[-'][A-Za-z]+)*|\d+")
-    WORD_RE_LATIN = re.compile(r"\p{Script=Latin}+(?:[-'’]\p{Script=Latin}+)*|\d+")
+    WORD_RE_LATIN = re.compile(r"\p{Script=Latin}+(?:[-'’]\p{Script=Latin}+)*")
 
     def __init__(self, counts_path: str = "./word-counts.json"):
         self.counts_path = Path(counts_path)

@@ -1,8 +1,7 @@
-import pandas as pd
-
 from wikiscraper.analysis.table import save_table_csv, value_freqs
 from wikiscraper.analysis.words import RelativeFrequencyAnalyzer, WordCounter
 from wikiscraper.scraper.client import WikiClient
+from wikiscraper.scraper.crawler import AutoCrawler
 from wikiscraper.scraper.parser import ArticleParser
 
 
@@ -56,3 +55,17 @@ class WikiScraperApp:
             )
 
         return df
+
+    def auto_count_words(self, start_phrase, depth, wait, max_links_per_page):
+        counter = WordCounter()
+        callback = counter.run
+        self.phrase = start_phrase  ### _load_html needs it
+        crawler = AutoCrawler(
+            wait_time=wait,
+            depth=depth,
+            parser_cls=ArticleParser,
+            client=self._load_html,
+            strategy="bfs",
+            max_links_per_page=max_links_per_page,
+        )
+        crawler.crawl(start_phrase, callback)
