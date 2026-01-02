@@ -68,25 +68,52 @@ def parse_arguments():
         default=None,
         help="Optional path to save bar chart (requires --analyze-relative-word-frequency)",
     )
+    parser.add_argument(
+        "--auto-count-words",
+        type=str,
+        help="Automatically count word frequencies instead of printing summary",
+    )
+    parser.add_argument(
+        "--depth",
+        type=int,
+        help="Depth of search for auto-count-words (default: %(default)s)",
+    )
+    parser.add_argument(
+        "--wait",
+        type=float,
+        help="Wait time in seconds between requests for auto-count-words",
+    )
 
     args = parser.parse_args()
 
     ### walidacja zależności
-    used_any_analyze_opts = any(
+    used_any_analyze_freq_opts = any(
         [
             args.mode is not None,
             args.count is not None,
             args.chart is not None,
         ]
     )
+    used_any_auto_count_words_opts = any(
+        [
+            args.auto_count_words is not None,
+            args.depth is not None,
+            args.wait is not None,
+        ]
+    )
     # print(args)
-    if used_any_analyze_opts and not args.analyze_relative_word_frequency:
+    if used_any_analyze_freq_opts and not args.analyze_relative_word_frequency:
         parser.error("--mode/--count/--chart require --analyze-relative-word-frequency")
     if args.analyze_relative_word_frequency:
         if args.mode is None or args.count is None:
             parser.error(
                 "--analyze-relative-word-frequency requires --mode and --count"
             )
+    if used_any_auto_count_words_opts and not args.auto_count_words:
+        parser.error("--depth/--wait require --auto-count-words")
+    if args.auto_count_words:
+        if args.depth is None or args.wait is None:
+            parser.error("--auto-count-words requires --depth and --wait")
     return args
 
 
@@ -113,6 +140,10 @@ def main() -> int:
             app.run_table(args.table_phrase, args.number, args.first_row_is_header)
         if args.analyze_relative_word_frequency:
             app.analyze_relative_frequencies(args.mode, args.count, args.chart)
+        if args.auto_count_words:
+            app.auto_count_words(
+                args.auto_count_words, args.depth, args.wait, max_links_per_page=5
+            )
     except Exception as e:
         print(f"Error: {e}")
         return 1
