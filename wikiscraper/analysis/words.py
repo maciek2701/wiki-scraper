@@ -62,28 +62,30 @@ class WordCounter:
 
 
 class RelativeFrequencyAnalyzer:
-    def __init__(self, top_k, mode, lang="en", lang_top_k=1000):
+    def __init__(self, counts, top_k, mode, lang="en", lang_top_k=1000):
         self.lang = lang
         self.top_k = top_k
+        self.counts = counts
         if mode not in {"article", "language"}:
             raise ValueError("mode must be 'article' or 'language'")
         self.mode = mode
         self.lang_top_k = lang_top_k
 
-        counter = WordCounter()
-        self.counts = counter.load_counts()
-
         if not self.counts:
             raise ValueError("No counts loaded")
 
-    def analyze_frequency(self):
-        article_sorted = sorted(self.counts.items(), key=lambda x: x[1], reverse=True)
-        article_top_words = [w for w, _ in article_sorted[: self.top_k]]
-
+    def get_language_frequencies(self):
         lang_words = wf.top_n_list(self.lang, self.lang_top_k)
         freqs = {}
         for w in lang_words:
             freqs[w] = wf.word_frequency(w, self.lang)
+        return freqs
+
+    def return_norms(self):
+        article_sorted = sorted(self.counts.items(), key=lambda x: x[1], reverse=True)
+        article_top_words = [w for w, _ in article_sorted[: self.top_k]]
+
+        freqs = self.get_language_frequencies()
         flang_top_words = list(freqs.keys())[: self.top_k]
 
         if self.mode == "article":
@@ -96,6 +98,11 @@ class RelativeFrequencyAnalyzer:
 
         max_lang = max(freqs.values()) if freqs else 1
         lang_norm = {w: c / max_lang for w, c in freqs.items()}
+
+        return article_norm, lang_norm, selected_words
+
+    def analyze_frequency(self):
+        article_norm, lang_norm, selected_words = self.return_norms()
 
         rows = []
 

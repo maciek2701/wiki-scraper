@@ -27,6 +27,18 @@ class ArticleParser:
 
         return True
 
+    def extract_links(self, prefix="/wiki/"):
+        container = self.get_main_content()
+        links = container.find_all("a")
+
+        results = []
+        for link in links:
+            href = link.get("href")
+            if self.is_article_link(href, prefix):
+                results.append(href[len(prefix) :])
+
+        return results
+
     def get_main_content(self):
         root = self.soup.find("div", id="mw-content-text")
         if root is None:
@@ -157,16 +169,3 @@ class ArticleParser:
         if df.shape[1] >= 2:
             df = df.set_index(df.columns[0])
         return df
-
-
-def extract_links(self, prefix="/wiki/"):
-    container = self.get_main_content()
-    links = container.find_all("a")
-
-    results = []
-    for link in links:
-        href = link.get("href")
-        if self.is_article_link(href, prefix):
-            results.append(href[len(prefix) :])
-
-    return results

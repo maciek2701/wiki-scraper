@@ -42,7 +42,8 @@ class WikiScraperApp:
         return df, value_freqs(df)
 
     def analyze_relative_frequencies(self, mode, count, chart):
-        analyser = RelativeFrequencyAnalyzer(count, mode)
+        count_dict = WordCounter("./word-counts.json").load_counts()
+        analyser = RelativeFrequencyAnalyzer(count_dict, count, mode)
         df = analyser.analyze_frequency()
 
         print(df)
@@ -56,8 +57,15 @@ class WikiScraperApp:
 
         return df
 
-    def auto_count_words(self, start_phrase, depth, wait, max_links_per_page):
-        counter = WordCounter()
+    def auto_count_words(
+        self,
+        start_phrase,
+        depth,
+        wait,
+        max_links_per_page,
+        cnt_path="./word-counts.json",
+    ):
+        counter = WordCounter(counts_path=cnt_path)
         callback = counter.run
         self.phrase = start_phrase  ### _load_html needs it
         crawler = AutoCrawler(

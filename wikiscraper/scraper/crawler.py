@@ -37,7 +37,7 @@ class AutoCrawler:
 
     def crawl(self, start_phrase, callback):
         visited = set()
-
+        return_links = set()
         if self.strategy == "bfs":
             dek = deque()
             pop = dek.popleft
@@ -66,10 +66,12 @@ class AutoCrawler:
                 text = parser.extract_article_text()
 
                 ### Counting words
-                callback(text)
+                if callback is not None:
+                    callback(text)
 
                 if d < self.depth:
                     links = parser.extract_links()
+                    return_links.update(links)
                     fresh = [lin for lin in links if lin not in visited]
                     ### Log diagnostyczny
                     print(
@@ -91,3 +93,4 @@ class AutoCrawler:
                 time.sleep(self.wait_time)
             else:
                 print("Warning wait_time is 0")
+        return return_links
