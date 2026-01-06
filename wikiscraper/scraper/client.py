@@ -9,6 +9,9 @@ class WikiClient:
 
     def load_html(self, path: str | Path):
         self.path = Path(path)
+        ### check if file exists
+        if not self.path.exists():
+            raise Exception(f"File {self.path} does not exist")
         return self.path.read_text(encoding="utf-8")
 
     def fetch_html(self, phrase: str):

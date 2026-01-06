@@ -10,6 +10,23 @@ class ArticleParser:
         self.html = html
         self.soup = BeautifulSoup(html, "html.parser")
 
+    @staticmethod
+    def is_article_link(href: str | None, prefix="/wiki/") -> bool:
+        if not href:
+            return False
+        if href.startswith("#"):
+            return False
+        if not href.startswith(prefix):
+            return False
+
+        rest = href[len(prefix) :]
+        if not rest:
+            return False
+        if ":" in rest:
+            return False
+
+        return True
+
     def get_main_content(self):
         root = self.soup.find("div", id="mw-content-text")
         if root is None:
@@ -117,6 +134,8 @@ class ArticleParser:
     def extract_table_with_pandas(self, n, first_row_is_header=True):
         container = self.get_main_content()
         tables = container.find_all("table")
+        if len(tables) == 0:
+            raise ValueError("No tables found")
         if n < 1 or n > len(tables):
             raise ValueError(f"Table number {n} out of range (1..{len(tables)})")
         table_tag = tables[n - 1]
@@ -139,26 +158,15 @@ class ArticleParser:
             df = df.set_index(df.columns[0])
         return df
 
-    def extract_links(self, prefix="/wiki/"):
-        container = self.get_main_content()
-        links = container.find_all("a")
 
-        ### czyszcze linki
-        results = []
+def extract_links(self, prefix="/wiki/"):
+    container = self.get_main_content()
+    links = container.find_all("a")
 
-        for link in links:
-            href = link.get("href")
-            if not href:
-                continue
-            if href.startswith("#"):
-                continue
-            if not href.startswith(prefix):
-                continue
-            ### sprawdzam czy nie sa to linki do np plików
-            rest = href[len(prefix) :]
-            if ":" in rest:
-                continue
-            if not rest:
-                continue
-            results.append(rest)  ### zapisuje bez wiki
-        return results
+    results = []
+    for link in links:
+        href = link.get("href")
+        if self.is_article_link(href, prefix):
+            results.append(href[len(prefix) :])
+
+    return results

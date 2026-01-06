@@ -28,7 +28,7 @@ def parse_arguments():
         "table", help="Extract n-th table from article"
     )
     table_parser.add_argument(
-        "table-phrase",
+        "phrase",
         type=str,
         help="Phrase to search for",
     )
@@ -101,7 +101,6 @@ def parse_arguments():
             args.wait is not None,
         ]
     )
-    # print(args)
     if used_any_analyze_freq_opts and not args.analyze_relative_word_frequency:
         parser.error("--mode/--count/--chart require --analyze-relative-word-frequency")
     if args.analyze_relative_word_frequency:
@@ -119,7 +118,7 @@ def parse_arguments():
 
 def main() -> int:
     args = parse_arguments()
-
+    # print(args)
     try:
         if args.local_html is not None:
             app = WikiScraperApp(path=args.local_html)
@@ -137,7 +136,7 @@ def main() -> int:
             summary = app.summary(args.summary)
             print(summary)
         if args.command == "table":
-            app.run_table(args.table_phrase, args.number, args.first_row_is_header)
+            app.run_table(args.phrase, args.number, args.first_row_is_header)
         if args.analyze_relative_word_frequency:
             app.analyze_relative_frequencies(args.mode, args.count, args.chart)
         if args.auto_count_words:
