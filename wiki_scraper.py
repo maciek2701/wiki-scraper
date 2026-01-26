@@ -1,9 +1,9 @@
 import argparse
 from pathlib import Path
 
+from wikiscraper import BULBAPEDIA, LOCAL
 from wikiscraper.licensing import build_license_notice
 from wikiscraper.scraper.app import WikiScraperApp
-from wikiscraper.sources import BULBAPEDIA, LOCAL
 
 
 def parse_arguments():
@@ -134,7 +134,7 @@ def main() -> int:
     if not args.local_html:
         source = BULBAPEDIA
     else:
-        source = LOCAL
+        source = LOCAL  ### na potrzeby tego projektu nie obsluguje niczego innego
 
     try:
         if args.count_words:

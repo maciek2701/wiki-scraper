@@ -26,8 +26,8 @@ WIKIPEDIA = SourceInfo(
 )
 
 LOCAL = SourceInfo(
-    name="Local",
-    base_url="",
-    license_name="",
-    license_short="",
+    name="Local HTML",
+    base_url="(local file)",
+    license_name="Educational use",
+    license_short="EDU",
 )
