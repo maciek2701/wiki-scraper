@@ -1,8 +1,7 @@
 import re
 
-import numpy as np
 import pandas as pd
-from bs4 import BeautifulSoup, Tag
+from bs4 import BeautifulSoup
 
 
 class ArticleParser:
@@ -119,7 +118,6 @@ class ArticleParser:
             return ""
 
         self._remove_unwanted(container)
-
         blocks = []
 
         # Biore rzeczy z których chce składać tekst do analizy
@@ -157,7 +155,6 @@ class ArticleParser:
 
         dfs = pd.read_html(tab_html, header=header)
         df = dfs[0] if dfs else pd.DataFrame()
-
         if isinstance(df.columns, pd.MultiIndex):
             df.columns = [
                 " ".join([str(x) for x in col if str(x) != "nan"]).strip()

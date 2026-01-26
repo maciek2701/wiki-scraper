@@ -1,19 +1,23 @@
 import time
 from collections import deque
+from typing import Callable
 
 from wikiscraper.scraper.client import WikiClient
 
 
 class AutoCrawler:
+    """Crawl linked pages starting from a phrase and process article text."""
+
     def __init__(
         self,
-        wait_time,
-        depth,
-        parser_cls,
-        client,
-        strategy="bfs",
-        max_links_per_page=None,
-    ):
+        wait_time: float,
+        depth: int,
+        parser_cls: type,
+        client: WikiClient | Callable[[], str],
+        strategy: str = "bfs",
+        max_links_per_page: int | None = None,
+    ) -> None:
+        """Configure crawl limits, parsing, and retrieval strategy."""
         self.wait_time = wait_time
         self.depth = depth
         self.strategy = strategy
@@ -29,15 +33,20 @@ class AutoCrawler:
                 "strategy must be 'bfs' or 'dfs - although dfs doesn't work rn'"
             )
 
-    def __str__(self):
+    def __str__(self) -> str:
+        """Return a readable representation for debugging."""
         return f"AutoCrawler(wait_time={self.wait_time}, depth={self.depth}, strategy={self.strategy})"
 
-    def __repr__(self):
+    def __repr__(self) -> str:
+        """Return the same representation as __str__."""
         return self.__str__()
 
-    def crawl(self, start_phrase, callback):
-        visited = set()
-        return_links = set()
+    def crawl(
+        self, start_phrase: str, callback: Callable[[str], object] | None
+    ) -> set[str]:
+        """Traverse pages and apply a callback to extracted article text."""
+        visited: set[str] = set()
+        return_links: set[str] = set()
         if self.strategy == "bfs":
             dek = deque()
             pop = dek.popleft
