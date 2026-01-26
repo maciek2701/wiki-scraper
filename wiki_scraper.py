@@ -1,7 +1,9 @@
 import argparse
 from pathlib import Path
 
+from wikiscraper.licensing import build_license_notice
 from wikiscraper.scraper.app import WikiScraperApp
+from wikiscraper.sources import BULBAPEDIA, LOCAL
 
 
 def parse_arguments():
@@ -129,14 +131,22 @@ def main() -> int:
         print(f"Error: {e}")
         return 2
 
+    if not args.local_html:
+        source = BULBAPEDIA
+    else:
+        source = LOCAL
+
     try:
         if args.count_words:
             app.count_words(args.count_words)
+            print(build_license_notice(source, args.count_words))
         if args.summary:
             summary = app.summary(args.summary)
             print(summary)
+            print(build_license_notice(source, args.summary))
         if args.command == "table":
             app.run_table(args.phrase, args.number, args.first_row_is_header)
+            print(build_license_notice(source, args.phrase))
         if args.analyze_relative_word_frequency:
             app.analyze_relative_frequencies(args.mode, args.count, args.chart)
         if args.auto_count_words:

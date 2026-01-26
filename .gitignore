@@ -26,6 +26,11 @@ coverage.xml
 # Jupyter
 .ipynb_checkpoints/
 
+# Project outputs
+/word-counts.json
+/chart.png
+/notebooks/store_counts/
+
 # Editors
 .vscode/
 .idea/
