@@ -1,7 +1,10 @@
 import re
+import warnings
 
 import pandas as pd
 from bs4 import BeautifulSoup
+
+warnings.simplefilter(action="ignore", category=FutureWarning)
 
 
 class ArticleParser:

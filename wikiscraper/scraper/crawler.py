@@ -28,10 +28,8 @@ class AutoCrawler:
             raise ValueError("max_depth must be >= 0")
         if self.wait_time < 0:
             raise ValueError("wait_seconds must be >= 0")
-        if self.strategy not in ("bfs", "dfs"):
-            raise ValueError(
-                "strategy must be 'bfs' or 'dfs - although dfs doesn't work rn'"
-            )
+        if self.strategy not in ("bfs"):
+            raise ValueError("strategy must be 'bfs' -  dfs doesn't work rn'")
 
     def __str__(self) -> str:
         """Return a readable representation for debugging."""

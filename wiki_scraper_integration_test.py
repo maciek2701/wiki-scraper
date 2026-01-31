@@ -9,6 +9,9 @@ from wikiscraper.scraper.app import WikiScraperApp
 def main():
     fixtures_dir = Path(__file__).parent / "fixtures"
     file_path = fixtures_dir / "Team_Rocket.html"
+    start = "Team Rocket"
+    end = "outpost in the Sevii Islands."
+
     try:
         app = WikiScraperApp(path=file_path)
         app.count_words("Team_Rocket")
@@ -17,19 +20,18 @@ def main():
         return 2
     try:
         summary = app.summary("Team Rocket cokolwiek")
-        ### Program działa tak, że jesli zaladujemy html z pliku to ta fraza nie ma znaczenia
-        print(summary)
+        ### Program działa tak, że jesli zaladujemy html z pliku to ta fraza w metodzie summary nie ma znaczenia
+        print("=== SUMMARY ===")
+        print(summary, end="\n\n")
     except Exception as e:
         print(f"Error: {e}")
         return 1
     ### check if summary starts and ends if desired phrase
 
     assert summary.startswith(
-        "Team Rocket"
-    ), "[FAIL] Summary does not start with 'Team Rocket"
-    assert summary.endswith(
-        "outpost in the Sevii Islands."
-    ), "[FAIL] Summary does not end with 'outpost in the Sevii Islands."
+        f"{start}"
+    ), f"[FAIL] Summary does not start with '{start}'"
+    assert summary.endswith(f"{end}"), f"[FAIL] Summary does not end with '{end}'"
 
     print("[PASS] Integration test passed")
     return 0

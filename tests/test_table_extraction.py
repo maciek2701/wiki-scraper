@@ -6,7 +6,7 @@ from wikiscraper.scraper.parser import ArticleParser
 
 def test_extract_table_dimensions(html_dimension):
     parser = ArticleParser(html_dimension)
-    df = parser.extract_table_with_pandas(1, first_row_is_header=True)  # dopasuj nr
+    df = parser.extract_table_with_pandas(1, first_row_is_header=True)
 
     assert isinstance(df, pd.DataFrame)
     assert not df.empty
@@ -16,7 +16,7 @@ def test_extract_table_dimensions(html_dimension):
 
 def test_extract_table_rocket(html_team_rocket):
     parser = ArticleParser(html_team_rocket)
-    df = parser.extract_table_with_pandas(1, first_row_is_header=True)  # dopasuj nr
+    df = parser.extract_table_with_pandas(1, first_row_is_header=True)
 
     assert isinstance(df, pd.DataFrame)
     assert not df.empty
@@ -27,6 +27,6 @@ def test_extract_table_rocket(html_team_rocket):
 def test_extract_table_empty(html_empty):
     with pytest.raises(ValueError):
         parser = ArticleParser(html_empty)
-        df = parser.extract_table_with_pandas(1, first_row_is_header=True)  # dopasuj nr
+        df = parser.extract_table_with_pandas(1, first_row_is_header=True)
         assert isinstance(df, pd.DataFrame)
         assert not df.empty

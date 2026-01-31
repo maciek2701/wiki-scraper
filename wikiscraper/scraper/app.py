@@ -12,13 +12,13 @@ from wikiscraper.scraper.parser import ArticleParser
 class WikiScraperApp:
     """High-level convenience interface for scraping and analysis workflows."""
 
-    def __init__(self, **kwargs) -> None:
+    def __init__(self, path: Optional[str] = None) -> None:
         """Initialize the app with optional configuration.
 
         Args:
-            **kwargs: Optional settings. Currently supports `path` for local HTML.
+            path: Optional settings. Currently supports `path` for local HTML.
         """
-        self.path: Optional[str] = kwargs.get("path")
+        self.path = path
         self.phrase: Optional[str] = None
 
     def _load_html(self) -> str:
@@ -57,7 +57,10 @@ class WikiScraperApp:
 
         if display:
             print("=== TABLE ===")
-            print(df)
+            with pd.option_context(
+                "display.max_rows", None, "display.max_columns", None
+            ):  # more options can be specified also
+                print(df)
             save_table_csv(df, phrase)
             print("\n=== VALUE FREQUENCIES ===")
             print(value_freqs(df))

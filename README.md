@@ -81,5 +81,4 @@ Example notice printed by the program:
 "Wyjście programu na licencji BY-NC-SA stworzone na podstawie artykułu dostępnego
 na stronie https://bulbapedia.bulbagarden.net/wiki/Team_Rocket."
 
-## Acknowledgements
-[TODO: Credit sources, libraries, or inspirations.]
+
