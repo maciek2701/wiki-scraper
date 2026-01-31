@@ -1,84 +1,100 @@
 # Wiki Scraper
 
-> [TODO: One-sentence description of what this project does.]
+> Prosty scraper artykułów z wiki (domyślnie Bulbapedia) z analizą tabel i słów.
 
-## Overview
-[TODO: Add a short paragraph describing the goal, scope, and target users.]
+## Opis
+Projekt służy do pobierania treści artykułów z wiki, wyciągania krótkiego opisu,
+ekstrakcji tabel oraz analizy częstości słów. Można pracować na stronie online
+albo na lokalnym pliku HTML (np. zapisanym wcześniej).
 
-## Features
-- [TODO: Feature 1]
-- [TODO: Feature 2]
-- [TODO: Feature 3]
+## Funkcje
+- Pobieranie i parsowanie artykułów (Bulbapedia lub lokalny HTML).
+- Wyciąganie podsumowania artykułu.
+- Ekstrakcja n-tej tabeli do CSV.
+- Zliczanie słów i zapis sum do pliku JSON.
+- Analiza względnych częstości słów + opcjonalny wykres.
+- Automatyczne przechodzenie po linkach i zliczanie słów w wielu artykułach.
 
-## Project structure
-- `wikiscraper/` — [TODO: core package description]
-- `wiki_scraper.py` — [TODO: CLI entry point description]
-- `tests/` — [TODO: tests description]
-- `notebooks/` — [TODO: notebooks usage]
-- `fixtures/` — [TODO: sample data description]
+## Struktura projektu
+- `wikiscraper/` — główna paczka z analizą, parserem i klientem HTTP.
+- `wiki_scraper.py` — CLI do uruchamiania funkcji z linii poleceń.
+- `tests/` — testy jednostkowe (pytest).
+- `fixtures/` — przykładowe HTML do testów.
+- `notebooks/` — notatniki do eksperymentów/analityki.
 
-## Installation
-### Option A: pip
+## Wymagania
+- Python >= 3.11
+
+## Instalacja
+### Opcja A: pip
 ```bash
 pip install -r requirements.txt
 ```
 
-### Option B: editable install (recommended for development)
+### Opcja B: instalacja edytowalna (dev)
 ```bash
 pip install -e .
 ```
 
-## Usage
-### Basic summary
+## Użycie
+### Podstawowe podsumowanie artykułu
 ```bash
-python wiki_scraper.py --summary "Your phrase here"
+python wiki_scraper.py --summary "Team Rocket"
 ```
 
-### Local HTML
+### Lokalny HTML
 ```bash
-python wiki_scraper.py --local-html path\to\page.html --summary "Your phrase here"
+python wiki_scraper.py --local-html path\to\page.html --summary "Team Rocket"
 ```
 
-### Extract a table
+### Ekstrakcja tabeli
 ```bash
-python wiki_scraper.py table "Your phrase here" --number 1 --first-row-is-header
+python wiki_scraper.py table "Team Rocket" --number 1 --first-row-is-header
 ```
 
-### Word counts
+### Zliczanie słów
 ```bash
-python wiki_scraper.py --count-words "Your phrase here"
+python wiki_scraper.py --count-words "Team Rocket"
 ```
 
-## Output
-[TODO: Describe output files, formats, and where they are saved.]
+### Analiza względnych częstości słów
+```bash
+python wiki_scraper.py --analyze-relative-word-frequency --mode article --count 20
+```
 
-## Configuration
-[TODO: Mention config files, environment variables, or defaults.]
+### Automatyczne zliczanie słów po linkach
+```bash
+python wiki_scraper.py --auto-count-words "Team Rocket" --depth 1 --wait 0.5
+```
 
-## Testing
+## Wyniki i pliki wyjściowe
+- `word-counts.json` — skumulowane zliczenia słów (tworzone/aktualizowane).
+- `*.csv` — tabela zapisana przez funkcję ekstrakcji tabel (nazwa z frazy).
+- `chart.png` — opcjonalny wykres z analizy częstości (gdy użyjesz `--chart`).
+
+## Konfiguracja
+- Domyślne źródło to Bulbapedia.
+- `--local-html` przełącza analizę na plik lokalny.
+- Ścieżka pliku z licznikiem słów jest domyślnie `./word-counts.json`.
+
+## Testy
 ```bash
 pytest
 ```
 
 ## Development
-### Linting and formatting
+### Linting i formatowanie
 ```bash
 ruff check .
 black .
 ```
 
-## Roadmap
-- [TODO: Planned improvement 1]
-- [TODO: Planned improvement 2]
+## License i źródła danych
 
-## License and data sources
+Kod programu jest udostępniony do celów edukacyjnych.
+Wyniki programu oparte są o treści z Bulbapedia i podlegają licencji
+Creative Commons BY-NC-SA.
 
-The program code is provided for educational purposes.
-Program outputs are based on content from Bulbapedia and are subject to the
-Creative Commons BY-NC-SA license.
-
-Example notice printed by the program:
+Przykładowa informacja generowana przez program:
 "Wyjście programu na licencji BY-NC-SA stworzone na podstawie artykułu dostępnego
 na stronie https://bulbapedia.bulbagarden.net/wiki/Team_Rocket."
-
-
