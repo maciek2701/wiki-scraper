@@ -12,9 +12,12 @@ from matplotlib import pyplot as plt
 
 class WordCounter:
     """Tokenize text and maintain word-count totals on disk."""
+
     WORD_RE = re.compile(r"\w+", flags=re.UNICODE)
     WORD_RE_ANG = re.compile(r"[A-Za-z]+(?:[-'][A-Za-z]+)*|\d+")
-    WORD_RE_LATIN = re.compile(r"\p{Script=Latin}+(?:[-'’]\p{Script=Latin}+)*")
+    WORD_RE_LATIN = re.compile(
+        r"\p{Script=Latin}+(?:[-'’]\p{Script=Latin}+)*"
+    )  ### tutaj akurat bez liczb
 
     def __init__(self, counts_path: str = "./word-counts.json") -> None:
         """Create a counter with a JSON counts file path."""
@@ -109,7 +112,9 @@ class RelativeFrequencyAnalyzer:
         article_top_words = [w for w, _ in article_sorted[: self.top_k]]
 
         freqs = self.get_language_frequencies()
-        flang_top_words = list(freqs.keys())[: self.top_k]
+        flang_top_words = list(freqs.keys())[
+            : self.top_k
+        ]  ### Python >=3.7 zachowuje kolejnosc w dict
 
         if self.mode == "article":
             selected_words = article_top_words

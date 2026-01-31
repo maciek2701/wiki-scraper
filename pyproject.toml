@@ -8,18 +8,24 @@ version = "0.1.0"
 requires-python = ">=3.11"
 description = "WikiScraper project for Python course"
 authors = [{ name = "Maciej Padarz" }]
+readme = "README.md"
 dependencies = [
   "beautifulsoup4>=4.12",
+  "matplotlib>=3.8",
   "numpy>=1.26",
   "pandas>=2.1",
+  "regex>=2024.0",
   "requests>=2.32",
-  "tomlkit>=0.13",
+  "seaborn>=0.13",
+  "wordfreq>=3.1",
 ]
 
 [project.optional-dependencies]
-analysis = ["matplotlib", "wordfreq"]
 notebook = ["jupyter", "ipykernel"]
 dev = ["black", "ruff", "pytest"]
+
+[project.scripts]
+wiki-scraper = "wiki_scraper:main"
 
 [tool.setuptools]
 packages = { find = {} }
@@ -42,3 +48,5 @@ ignore = ["E501"]
 known-first-party = ["wikiscraper"]
 combine-as-imports = true
 
+[tool.pytest.ini_options]
+testpaths = ["tests"]

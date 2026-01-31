@@ -4,11 +4,9 @@ import warnings
 import pandas as pd
 from bs4 import BeautifulSoup
 
-warnings.simplefilter(action="ignore", category=FutureWarning)
-
 
 class ArticleParser:
-    def __init__(self, html):
+    def __init__(self, html: str) -> None:
         self.html = html
         self.soup = BeautifulSoup(html, "html.parser")
 
@@ -29,15 +27,20 @@ class ArticleParser:
 
         return True
 
-    def extract_links(self, prefix="/wiki/"):
+    def extract_links(self, prefix="/wiki/") -> list[str]:
         container = self.get_main_content()
         links = container.find_all("a")
 
-        results = []
+        results: list[str] = []
+        seen: set[str] = set()
+
         for link in links:
             href = link.get("href")
             if self.is_article_link(href, prefix):
-                results.append(href[len(prefix) :])
+                slug = href[len(prefix) :]
+                if slug not in seen:
+                    seen.add(slug)
+                    results.append(slug)
 
         return results
 
@@ -64,6 +67,7 @@ class ArticleParser:
         raise Exception("Summary not found")
 
     def _remove_unwanted(self, container):
+
         if not container:
             return
 
@@ -156,7 +160,9 @@ class ArticleParser:
 
         header = 0 if first_row_is_header else None
 
-        dfs = pd.read_html(tab_html, header=header)
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", category=FutureWarning)
+            dfs = pd.read_html(tab_html, header=header)
         df = dfs[0] if dfs else pd.DataFrame()
         if isinstance(df.columns, pd.MultiIndex):
             df.columns = [

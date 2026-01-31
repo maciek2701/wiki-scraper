@@ -13,7 +13,7 @@ class WikiScraperApp:
     """High-level convenience interface for scraping and analysis workflows."""
 
     def __init__(self, path: Optional[str] = None) -> None:
-        """Initialize the app with optional configuration.
+        """Initialize the app with optional local path.
 
         Args:
             path: Optional settings. Currently supports `path` for local HTML.
@@ -21,22 +21,24 @@ class WikiScraperApp:
         self.path = path
         self.phrase: Optional[str] = None
 
-    def _load_html(self) -> str:
-        """Load HTML either from a local path or by fetching a phrase."""
+    def _load_html(self, phrase: Optional[str] = None) -> str:
+        client = WikiClient()
         if self.path is not None:
-            return WikiClient().load_html(self.path)
-        return WikiClient().fetch_html(self.phrase)
+            return client.load_html(self.path)
+        if phrase is None:
+            raise ValueError("phrase must be provided when no local path is set")
+        return client.fetch_html(phrase)
 
     def summary(self, phrase: str) -> str:
         """Fetch an article summary for the given phrase."""
         self.phrase = phrase
-        html = self._load_html()
+        html = self._load_html(self.phrase)
         return ArticleParser(html).extract_summary()
 
     def count_words(self, phrase: str) -> dict[str, int]:
         """Count word frequencies in the article text and persist totals."""
         self.phrase = phrase
-        html = self._load_html()
+        html = self._load_html(self.phrase)
         text = ArticleParser(html).extract_article_text()
         return WordCounter().run(text)
 
@@ -49,7 +51,7 @@ class WikiScraperApp:
     ) -> tuple[pd.DataFrame, pd.DataFrame]:
         """Extract a table and optionally print and persist its summary."""
         self.phrase = phrase
-        html = self._load_html()
+        html = self._load_html(self.phrase)
         parser = ArticleParser(html)
         df = parser.extract_table_with_pandas(
             nr, first_row_is_header=first_row_as_header
@@ -63,14 +65,19 @@ class WikiScraperApp:
                 print(df)
             save_table_csv(df, phrase)
             print("\n=== VALUE FREQUENCIES ===")
-            print(value_freqs(df))
-        return df, value_freqs(df)
+            freqs = value_freqs(df)
+            print(freqs)
+        return df, freqs
 
     def analyze_relative_frequencies(
-        self, mode: str, count: int, chart: bool
+        self,
+        mode: str,
+        count: int,
+        chart: bool,
+        counts_path: str = "./word-counts.json",
     ) -> pd.DataFrame:
         """Analyze relative word frequencies versus language statistics."""
-        count_dict = WordCounter("./word-counts.json").load_counts()
+        count_dict = WordCounter(counts_path).load_counts()
         analyser = RelativeFrequencyAnalyzer(count_dict, count, mode)
         df = analyser.analyze_frequency()
 
@@ -101,7 +108,7 @@ class WikiScraperApp:
             wait_time=wait,
             depth=depth,
             parser_cls=ArticleParser,
-            client=self._load_html,
+            client=WikiClient().fetch_html,
             strategy="bfs",
             max_links_per_page=max_links_per_page,
         )

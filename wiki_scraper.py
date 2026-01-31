@@ -151,7 +151,7 @@ def main() -> int:
             app.analyze_relative_frequencies(args.mode, args.count, args.chart)
         if args.auto_count_words:
             app.auto_count_words(
-                args.auto_count_words, args.depth, args.wait, max_links_per_page=5
+                args.auto_count_words, args.depth, args.wait, max_links_per_page=None
             )
     except Exception as e:
         print(f"Error: {e}")

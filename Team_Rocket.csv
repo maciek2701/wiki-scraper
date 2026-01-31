@@ -1,13 +1,13 @@
-Trainer,Trainer.1,NDex,Pokémon,Pokémon.1,Type,Weakness,Role,EX role,Base potential,Availability
-,Giovanni,#0150,,Mewtwo Mega Mewtwo Y,Psychic,Dark,,,★★★★★☆EX,Legendary Adventures Lurking Shadow
-,Giovanni,#0112,,Rhydon♂,Ground,Grass,,,★★★★★☆EX,Variety Sync Pair Scout
-,Giovanni,#0033,,Nidorino♂,Poison,Ground,,,★★★★☆☆EX,Trainer Lodge Friendship Level 100
-,Classic Giovanni,#0053,,Persian♂,Normal,Fighting,,,★★★★☆☆EX,Sync Pair-Up Event
-,Sygna Suit Giovanni,#0034,,Nidoking♂,Ground,Psychic,,,★★★★★☆EX,Poké Fair Sync Pair Scout
-,Sygna Suit (Alt.) Giovanni,#0799,,Guzzlord,Dark,Fairy,,,★★★★★☆EX,Master Fair Sync Pair Scout
-,Jessie,#0024,,Arbok♂,Poison,Ground,,,★★★,Event Double Trouble
-,James,#0110,,Weezing♂,Poison,Psychic,,,★★★,Event Blasting Off Again
-,Archer,#0229,,Houndoom♂,Dark,Fighting,,,★★★★★☆EX,Variety Sync Pair Scout
-,Ariana,#0024,,Arbok♀,Poison,Ground,,,★★★★★☆EX,Variety Sync Pair Scout
-,Petrel,#0110,,Weezing♂,Poison,Psychic,,,★★★★★☆EX,Variety Sync Pair Scout
-,Proton,#0042,,Golbat♂,Flying,Ice,,,★★★★★☆EX,Variety Sync Pair Scout
+Dex,Trainer,Trainer.1,NDex,Pokémon,Pokémon.1,Type,Weakness,Role,EX role,Base potential,Availability
+#074,,Giovanni,#0150,,Mewtwo Mega Mewtwo Y,Psychic,Dark,,,★★★★★☆EX,Legendary Adventures Lurking Shadow
+#074,,Giovanni,#0112,,Rhydon♂,Ground,Grass,,,★★★★★☆EX,Variety Sync Pair Scout
+#074,,Giovanni,#0033,,Nidorino♂,Poison,Ground,,,★★★★☆☆EX,Trainer Lodge Friendship Level 100
+#074,,Classic Giovanni,#0053,,Persian♂,Normal,Fighting,,,★★★★☆☆EX,Sync Pair-Up Event
+#074,,Sygna Suit Giovanni,#0034,,Nidoking♂,Ground,Psychic,,,★★★★★☆EX,Poké Fair Sync Pair Scout
+#074,,Sygna Suit (Alt.) Giovanni,#0799,,Guzzlord,Dark,Fairy,,,★★★★★☆EX,Master Fair Sync Pair Scout
+#097,,Jessie,#0024,,Arbok♂,Poison,Ground,,,★★★,Event Double Trouble
+#104,,James,#0110,,Weezing♂,Poison,Psychic,,,★★★,Event Blasting Off Again
+#177,,Archer,#0229,,Houndoom♂,Dark,Fighting,,,★★★★★☆EX,Variety Sync Pair Scout
+#178,,Ariana,#0024,,Arbok♀,Poison,Ground,,,★★★★★☆EX,Variety Sync Pair Scout
+#179,,Petrel,#0110,,Weezing♂,Poison,Psychic,,,★★★★★☆EX,Variety Sync Pair Scout
+#180,,Proton,#0042,,Golbat♂,Flying,Ice,,,★★★★★☆EX,Variety Sync Pair Scout
