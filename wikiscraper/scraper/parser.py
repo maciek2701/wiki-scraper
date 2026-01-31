@@ -148,6 +148,16 @@ class ArticleParser:
         text = re.sub(r"\n{3,}", "\n\n", text).strip()
         return text
 
+    def _merge_dupe_cols(self, df: pd.DataFrame) -> pd.DataFrame:
+        for c in list(df.columns):
+            if isinstance(c, str) and "." in c and c.rsplit(".", 1)[-1].isdigit():
+                base = c.rsplit(".", 1)[0]
+                if base in df.columns:
+                    df[c] = df[c].replace("", pd.NA)
+                    df[base] = df[base].fillna(df[c])
+                    df.drop(columns=c, inplace=True)
+        return df
+
     def extract_table_with_pandas(self, n, first_row_is_header=True):
         container = self.get_main_content()
         tables = container.find_all("table")
@@ -162,16 +172,24 @@ class ArticleParser:
 
         with warnings.catch_warnings():
             warnings.simplefilter("ignore", category=FutureWarning)
-            dfs = pd.read_html(tab_html, header=header)
+            dfs = pd.read_html(tab_html, header=header, index_col=0)
         df = dfs[0] if dfs else pd.DataFrame()
+
         if isinstance(df.columns, pd.MultiIndex):
             df.columns = [
-                " ".join([str(x) for x in col if str(x) != "nan"]).strip()
+                " ".join(str(x) for x in col if pd.notna(x)).strip()
                 for col in df.columns
             ]
 
+        # if isinstance(df.index, pd.MultiIndex):
+        #     df.index = df.index.map(
+        #         lambda t: " ".join(str(x) for x in t if pd.notna(x)).strip()
+        #     )
+
         df = df.loc[:, ~df.columns.astype(str).str.match(r"^Unnamed")]
 
-        if df.shape[1] >= 2:
-            df = df.set_index(df.columns[0])
+        df = self._merge_dupe_cols(df)
+
+        # if df.shape[1] >= 2:
+        #     df = df.set_index(df.columns[0])
         return df

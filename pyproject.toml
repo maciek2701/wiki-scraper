@@ -25,10 +25,13 @@ notebook = ["jupyter", "ipykernel"]
 dev = ["black", "ruff", "pytest"]
 
 [project.scripts]
-wiki-scraper = "wiki_scraper:main"
+wikiscraper = "wiki_scraper:main"
+wiki_scraper_integration_test = "wiki_scraper_integration_test:main"
+
 
 [tool.setuptools]
 packages = { find = {} }
+py-modules = ["wiki_scraper", "wiki_scraper_integration_test"]
 
 
 [tool.black]

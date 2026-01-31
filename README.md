@@ -26,6 +26,7 @@ albo na lokalnym pliku HTML (np. zapisanym wcześniej).
 - Python >= 3.11
 
 ## Instalacja
+Jeśli jako pakiet po pobraniu repozytorium.
 ### Opcja A: pip
 ```bash
 pip install -r requirements.txt
@@ -36,7 +37,26 @@ pip install -r requirements.txt
 pip install -e .
 ```
 
+### Jako pakiet z githuba (paczka nie jest udostepniona w PyPI dlatego najlepiej z repo)
+```bash
+pip install git+https://github.com/maciek2701/wiki-scraper.git
+
+pip install .[notebook]       # + jupyter
+pip install .[dev]            # + narzędzia dev
+pip install .[dev,notebook]   # oba extras
+```
+
 ## Użycie
+
+Można też używać tak:
+```bash
+wikiscraper --flagi argumenty
+```
+A test integracyjny:
+``` bash
+wiki_scraper_integration_test
+```
+
 ### Podstawowe podsumowanie artykułu
 ```bash
 python wiki_scraper.py --summary "Team Rocket"
